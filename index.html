@@ -1,0 +1,136 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speaking Cards</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="importmap">
+    {
+        "imports": {
+            "confetti": "https://cdn.skypack.dev/canvas-confetti"
+        }
+    }
+    </script>
+</head>
+<body>
+    <div id="start-screen" class="screen">
+        <div class="container">
+            <h1>Speaking Cards</h1>
+            <div class="instructions">
+                <h2>How to Play:</h2>
+                <ol>
+                    <li>Two players take turns selecting cards from a 5x5 grid.</li>
+                    <li>When a card is selected, it flips and reveals a speaking prompt question.</li>
+                    <li>The player must answer the question.</li>
+                    <li>The host decides if the answer is correct by clicking ✓ or ✗.</li>
+                    <li>If correct, the card becomes that player's color.</li>
+                    <li>The game ends when all cards are claimed.</li>
+                    <li>The player who claims more cards wins!</li>
+                </ol>
+            </div>
+            <div class="player-inputs">
+                <div class="input-group">
+                    <label for="player1">Player 1 Nickname:</label>
+                    <input type="text" id="player1" placeholder="Enter name">
+                </div>
+                <div class="input-group">
+                    <label for="player2">Player 2 Nickname:</label>
+                    <input type="text" id="player2" placeholder="Enter name">
+                </div>
+            </div>
+            <div class="button-container">
+                <button id="settings-btn" class="btn">Settings</button>
+                <button id="start-game-btn" class="btn btn-primary">Start Game</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="game-screen" class="screen hidden">
+        <div class="game-container">
+            <div class="game-header">
+                <div id="player1-score" class="player-score">
+                    <div class="player-color p1"></div>
+                    <span class="player-name"></span>: <span class="score">0</span>
+                </div>
+                <div id="game-status">
+                    <span id="current-player"></span>'s turn
+                </div>
+                <div id="player2-score" class="player-score">
+                    <div class="player-color p2"></div>
+                    <span class="player-name"></span>: <span class="score">0</span>
+                </div>
+            </div>
+            <div id="game-board" class="game-board"></div>
+            <div class="game-controls">
+                <button id="back-to-start" class="btn">Back to Start</button>
+                <button id="end-now-btn" class="btn btn-end-game">End Game Now</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="question-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2>Question</h2>
+            <p id="question-text"></p>
+            <div class="host-controls">
+                <button id="correct-btn" class="btn btn-success">✓ Correct</button>
+                <button id="incorrect-btn" class="btn btn-danger">✗ Incorrect</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="settings-modal" class="modal hidden">
+        <div class="modal-content settings-content">
+            <h2>Game Settings</h2>
+            <div class="question-bank-selector">
+                <h3>Select Question Bank:</h3>
+                <div class="bank-options">
+                    <label>
+                        <input type="radio" name="question-bank" value="general" checked>
+                        General Topics
+                    </label>
+                    <label>
+                        <input type="radio" name="question-bank" value="personal">
+                        Personal Questions
+                    </label>
+                    <label>
+                        <input type="radio" name="question-bank" value="opinion">
+                        Opinion Questions
+                    </label>
+                    <label>
+                        <input type="radio" name="question-bank" value="custom">
+                        Custom Questions
+                    </label>
+                </div>
+            </div>
+            <div id="custom-questions-container" class="hidden">
+                <h3>Enter Custom Questions</h3>
+                <p class="hint">Enter one question per line. You need at least 25 questions.</p>
+                <textarea id="custom-questions" rows="10" placeholder="What is your favorite movie?
+Where would you like to travel next?
+..."></textarea>
+                <div id="question-count">0 questions</div>
+            </div>
+            <div class="settings-buttons">
+                <button id="settings-cancel" class="btn">Cancel</button>
+                <button id="settings-save" class="btn btn-primary">Save Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="game-over-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2>Game Over!</h2>
+            <div id="winner-display"></div>
+            <div id="final-score"></div>
+            <button id="new-game-btn" class="btn btn-primary">New Game</button>
+        </div>
+    </div>
+
+    <div class="footer">
+        Author: Aaron Shi. Released in March 2025.
+    </div>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>
