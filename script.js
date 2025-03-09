@@ -167,6 +167,27 @@ function init() {
 
     // Custom questions textarea
     customQuestionsTextarea.addEventListener('input', updateQuestionCount);
+    
+    // Load custom questions from localStorage if available
+    loadCustomQuestions();
+}
+
+function loadCustomQuestions() {
+    const savedQuestions = localStorage.getItem('customQuestions');
+    if (savedQuestions) {
+        customQuestionsTextarea.value = savedQuestions;
+        updateQuestionCount();
+        
+        // If there were saved custom questions, set the radio button to custom
+        const customRadio = document.querySelector('input[name="question-bank"][value="custom"]');
+        if (customRadio && savedQuestions.trim() !== '') {
+            customRadio.checked = true;
+            customQuestionsContainer.classList.remove('hidden');
+        }
+        
+        // Also update the question bank
+        questionBanks.custom = savedQuestions.split('\n').filter(q => q.trim() !== '');
+    }
 }
 
 function updateQuestionCount() {
@@ -199,6 +220,9 @@ function saveSettings() {
             return;
         }
         questionBanks.custom = questions;
+        
+        // Save custom questions to localStorage
+        localStorage.setItem('customQuestions', customQuestionsTextarea.value);
     }
     
     closeSettings();
